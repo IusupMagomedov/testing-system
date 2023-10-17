@@ -29,7 +29,7 @@ const Question = () => {
             {console.log("questions before printing: ", questions)}
             { questions && questions.map((question) => ( 
                 <FormControl>
-                    <FormLabel id="demo-radio-buttons-group-label">question.title</FormLabel>
+                    <FormLabel id="demo-radio-buttons-group-label">{question.title}</FormLabel>
                     <RadioGroup
                         aria-labelledby="demo-radio-buttons-group-label"
                         name="radio-buttons-group"
