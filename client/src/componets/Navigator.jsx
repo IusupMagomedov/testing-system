@@ -1,6 +1,8 @@
-import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
 import Box from '@mui/material/Box';
+
+
+import ProfileMenu from './ProfileMenu';
 
 import './navigator.css';
 
@@ -20,9 +22,11 @@ const Navbar = () => {
                 borderRadius: 1,
                 }}
             >
-                <Button variant="text">Text</Button>
-                <Button variant="contained">Contained</Button>
-                <Button variant="outlined">Outlined</Button>
+                <Button variant="contained">Start</Button>
+                <Button variant="contained">Settings</Button>
+                <ProfileMenu 
+                    // username={username}
+                />
             </Box>
             
         </header>
