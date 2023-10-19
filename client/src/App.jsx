@@ -16,7 +16,7 @@ function App() {
                 element={<Home />}
               />
               <Route
-                path="/question"
+                path="/questions"
                 element={<Questions />}
               />
             </Routes>

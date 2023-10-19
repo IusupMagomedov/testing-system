@@ -3,14 +3,15 @@ import Question from '../componets/Question';
 import Box from '@mui/material/Box';
 import Tab from '@mui/material/Tab';
 import TabContext from '@material-ui/lab/TabContext';
-// import TabList from '@mui/lab/TabList';
-// import TabPanel from '@mui/lab/TabPanel';
+import TabList from '@material-ui/lab/TabList';
+import TabPanel from '@material-ui/lab/TabPanel';
 
 const Questions = () => {
     const [ questions, setQuestions ] = useState(null);
-    const [ tab, setTab ] = useState(1);
+    const [ tab, setTab ] = useState('1');
 
     const handleChange = (event, tab) => {
+        console.log('')
         setTab(tab);
       };
 
@@ -19,7 +20,7 @@ const Questions = () => {
         const fetchQuestions = async () => {
             const response = await fetch('/api/questions');
             const json = await response.json();
-            // console.log("json after fetch: ", json);
+            console.log("json after fetch: ", json);
             if(response.ok) {
                 setQuestions(json.questions);
             }
@@ -31,18 +32,28 @@ const Questions = () => {
 
     return (
         <Box sx={{ width: '100%', typography: 'body1' }}>
-            {/* <TabContext value={tab}>
+            {/* <Question 
+                questionData={questions}
+            /> */}
+            {console.log("Array of questions in return section: ", questions)}
+            <TabContext value={tab}>
                 <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
-                <TabList onChange={handleChange} aria-label="lab API tabs example">
-                    <Tab label="Item Odfne" value="1" />
-                    <Tab label="Item Two" value="2" />
-                    <Tab label="Item Three" value="3" />
-                </TabList>
+                    <TabList onChange={handleChange} aria-label="lab API tabs example">
+                        {questions && questions.map(
+                            ( question, index ) => 
+                                <Tab label={question.title} value={index + 1} />
+                            )}
+                    </TabList>
                 </Box>
-                <TabPanel value="1">Itasdfasfem One</TabPanel>
-                <TabPanel value="2">Item Two</TabPanel>
-                <TabPanel value="3">Item Three</TabPanel>
-            </TabContext> */}
+                {questions && questions.map(
+                    ( question, index ) => 
+                        <TabPanel value={index + 1}>
+                            <Question 
+                                questionData={question}
+                            />
+                        </TabPanel>
+                    )}
+            </TabContext>
         </Box>    
         
         
