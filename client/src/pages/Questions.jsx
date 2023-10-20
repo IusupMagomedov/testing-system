@@ -8,10 +8,10 @@ import TabPanel from '@material-ui/lab/TabPanel';
 
 const Questions = () => {
     const [ questions, setQuestions ] = useState(null);
-    const [ tab, setTab ] = useState('1');
+    const [ tab, setTab ] = useState(1);
 
     const handleChange = (event, tab) => {
-        console.log('')
+        // console.log('Valuer of tab in handleChange function: ', tab);
         setTab(tab);
       };
 
@@ -35,7 +35,8 @@ const Questions = () => {
             {/* <Question 
                 questionData={questions}
             /> */}
-            {console.log("Array of questions in return section: ", questions)}
+            {/* {console.log("Array of questions in return section: ", questions)} */}
+            {console.log("Value of tab in return section: ", tab)}
             <TabContext value={tab}>
                 <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
                     <TabList onChange={handleChange} aria-label="lab API tabs example">

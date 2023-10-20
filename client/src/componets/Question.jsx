@@ -3,6 +3,7 @@ import RadioGroup from '@mui/material/RadioGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import FormControl from '@mui/material/FormControl';
 import FormLabel from '@mui/material/FormLabel';
+import Button from '@mui/material/Button';
 
 
 
@@ -18,6 +19,9 @@ const Question = ( { questionData }) => {
                     <FormControlLabel value={index} control={<Radio />} label={option.title} />
                 ))}
             </RadioGroup>
+            <Button sx={{ mt: 1, mr: 1 }} type="submit" variant="outlined">
+                select
+            </Button>
         </FormControl>
     )
 }
