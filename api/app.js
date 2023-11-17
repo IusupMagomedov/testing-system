@@ -37,6 +37,13 @@ app.get('/api/questions', (req, res) => {
   })
 })
 
+app.get('/api/homepage', (req, res) => {
+  res.json({
+    title: "The titile of homepage", 
+    text: "The text of homepage"
+  })
+})
+
 app.get('/', (req, res) => {
     res.send('The app is supposed to be used by client')
 })
