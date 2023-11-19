@@ -6,53 +6,55 @@ const Home = () => {
     const [ homePageText, setHomePageText ] = useState(null)
 
     useEffect(() => {
-        const fetchWorkouts = async () => {
-            const response = await fetch('/api/homepage');
-            const json = await response.json();
-            console.log( "JSON in homepage useEffect: ", json)
-            console.log( "response in homepage useEffect: ", response)
-            
-            if(response.ok) {
-                 setHomePageText(json);
-            }
+        const fetchWorkouts =  () => {
+            fetch('/api/homepage')
+                .then(response => {
+                    console.log( "response in homepage useEffect: ", response);
+                    return response.json();
+                })
+                .then(json => {
+                    console.log( "JSON in homepage useEffect: ", json);
+                    return setHomePageText(json);
+                })
         }
 
         fetchWorkouts();
     }, [])
 
     return (
-        { homePageText } ? <Box sx={{ width: '100%', maxWidth: 500 }}>
+        
+        
+        <Box sx={{ width: '100%' }}>
             
-            <Typography variant="h3" gutterBottom>
-                {homePageText.title}
-            </Typography>
-            {/*
-            <Typography variant="subtitle1" gutterBottom>
-                {homePageText.text}
-            </Typography>
-            <Typography variant="subtitle2" gutterBottom>
-                {homePageText.text}
-            </Typography>
-            <Typography variant="body1" gutterBottom>
-                {homePageText.text}
-            </Typography>
-            <Typography variant="body2" gutterBottom>
-                {homePageText.text}
-            </Typography>
-            <Typography variant="button" display="block" gutterBottom>
-                {homePageText.text}
-            </Typography>
-            <Typography variant="caption" display="block" gutterBottom>
-                {homePageText.text}
-            </Typography>
-            <Typography variant="overline" display="block" gutterBottom>
-                {homePageText.text}
-            </Typography> */}
-        </Box> : 
-        <Box>
-            <Typography variant="subtitle1" gutterBottom>
-                Loading...
-            </Typography>
+            {homePageText ? 
+            <Typography variant="h3" align='center' gutterBottom> {homePageText.title} </Typography>: 
+            <Typography variant="h3" align='center' gutterBottom> Loading... </Typography>}
+                
+        {/* //     
+            
+        //     <Typography variant="subtitle1" gutterBottom>
+        //         {homePageText && .text}
+        //     </Typography>
+        //     <Typography variant="subtitle2" gutterBottom>
+        //         {homePageText.text}
+        //     </Typography>
+        //     <Typography variant="body1" gutterBottom>
+        //         {homePageText.text}
+        //     </Typography>
+        //     <Typography variant="body2" gutterBottom>
+        //         {homePageText.text}
+        //     </Typography>
+        //     <Typography variant="button" display="block" gutterBottom>
+        //         {homePageText.text}
+        //     </Typography>
+        //     <Typography variant="caption" display="block" gutterBottom>
+        //         {homePageText.text}
+        //     </Typography>
+        //     <Typography variant="overline" display="block" gutterBottom>
+        //         {homePageText.text}
+        //     </Typography> 
+        // </Box>   */}
+       
         </Box>
     )
 }
