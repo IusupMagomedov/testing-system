@@ -23,7 +23,13 @@ const Navbar = props => {
                 props.setMode('profile_settings');
                 break;    
             case 'Logout':
-                props.setMode('logged_out');
+                props.setLoggedIn(false);
+                break;
+            case 'Login':
+                props.setLoggedIn(true);
+                break;    
+            case 'Home':
+                props.setMode('home');
                 break;
             default:
                 break;
@@ -45,6 +51,7 @@ const Navbar = props => {
                 <Button variant="contained" onClick={buttonHandler}>Settings</Button>
                 <ProfileMenu 
                     handler={buttonHandler}
+                    loggedIn={props.loggedIn}
                     // username={username}
                 />
             </Box>

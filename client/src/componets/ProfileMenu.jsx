@@ -33,9 +33,10 @@ export default function ProfileMenu(props) {
           'aria-labelledby': 'basic-button',
         }}
       >
+        <MenuItem onClick={props.handler}>Home</MenuItem>
         <MenuItem onClick={props.handler}>Profile</MenuItem>
-        <MenuItem onClick={props.handler}>My account</MenuItem>
-        <MenuItem onClick={props.handler}>Logout</MenuItem>
+        { props.loggedIn && <MenuItem onClick={props.handler}>Logout</MenuItem> }
+        { !props.loggedIn && <MenuItem onClick={props.handler}>Login</MenuItem> }
       </Menu>
     </div>
   );

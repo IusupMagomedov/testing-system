@@ -10,7 +10,7 @@ import { useState } from 'react';
 
 function App() {
   const [mode, setMode] = useState(null);
-  
+  const [loggedIn, setLoggedIn] = useState(false);
 
   return (
     <div className="App">
@@ -21,6 +21,8 @@ function App() {
               <Navbar 
                 mode={mode}
                 setMode={setMode}
+                loggedIn={loggedIn}
+                setLoggedIn={setLoggedIn}
               />
             </Grid>
             <Grid item xs={12}>
