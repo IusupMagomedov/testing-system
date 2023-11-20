@@ -1,7 +1,9 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Home from './pages/Home';
-import Navbar from './componets/Navigator';
 import Questions from './pages/Questions';
+import Settings from './pages/Settings';
+import Profile from './pages/Profile';
+import Navbar from './componets/Navigator';
 import { Grid } from '@mui/material';
 
 
@@ -23,6 +25,14 @@ function App() {
                 <Route
                   path="/questions"
                   element={<Questions />}
+                />
+                <Route
+                  path="/settings"
+                  element={<Settings />}
+                />
+                <Route
+                  path="/profile"
+                  element={<Profile />}
                 />
               </Routes>
             </Grid>

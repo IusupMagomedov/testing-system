@@ -8,8 +8,11 @@ import './navigator.css';
 
 
 
+
 const Navbar = () => {
- 
+    const buttonHandler = event => {
+        console.log(event.target.innerText);
+    }
     return (
         <header>
             <Box
@@ -22,9 +25,10 @@ const Navbar = () => {
                 borderRadius: 1,
                 }}
             >
-                <Button variant="contained">Start</Button>
-                <Button variant="contained">Settings</Button>
+                <Button variant="contained" onClick={buttonHandler}>Start</Button>
+                <Button variant="contained" onClick={buttonHandler}>Settings</Button>
                 <ProfileMenu 
+                    handler={buttonHandler}
                     // username={username}
                 />
             </Box>

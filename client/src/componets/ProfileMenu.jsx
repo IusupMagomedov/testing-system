@@ -3,7 +3,7 @@ import Button from '@mui/material/Button';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 
-export default function ProfileMenu() {
+export default function ProfileMenu(props) {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
   const handleClick = (event) => {
@@ -33,9 +33,9 @@ export default function ProfileMenu() {
           'aria-labelledby': 'basic-button',
         }}
       >
-        <MenuItem onClick={handleClose}>Profile</MenuItem>
-        <MenuItem onClick={handleClose}>My account</MenuItem>
-        <MenuItem onClick={handleClose}>Logout</MenuItem>
+        <MenuItem onClick={props.handler}>Profile</MenuItem>
+        <MenuItem onClick={props.handler}>My account</MenuItem>
+        <MenuItem onClick={props.handler}>Logout</MenuItem>
       </Menu>
     </div>
   );
