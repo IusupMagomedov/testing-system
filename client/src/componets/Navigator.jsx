@@ -9,9 +9,25 @@ import './navigator.css';
 
 
 
-const Navbar = () => {
+const Navbar = props => {
+
     const buttonHandler = event => {
-        console.log(event.target.innerText);
+        switch (event.target.innerText) {
+            case 'START':
+                props.setMode('testing');
+                break;
+            case 'SETTINGS':
+                props.setMode('general_settings');
+                break;
+            case 'Profile':
+                props.setMode('profile_settings');
+                break;    
+            case 'Logout':
+                props.setMode('logged_out');
+                break;
+            default:
+                break;
+        }
     }
     return (
         <header>

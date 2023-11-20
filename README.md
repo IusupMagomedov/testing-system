@@ -4,8 +4,7 @@
 
 ### Operating modes
 
-1. On load not logged-in
-2. On load logged-in
-3. Testing
-4. General settings 
-5. Profile settings
+* Home page
+* Testing
+* General settings 
+* Profile settings

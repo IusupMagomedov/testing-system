@@ -5,16 +5,23 @@ import Settings from './pages/Settings';
 import Profile from './pages/Profile';
 import Navbar from './componets/Navigator';
 import { Grid } from '@mui/material';
+import { useState } from 'react';
 
 
 function App() {
+  const [mode, setMode] = useState(null);
+  
+
   return (
     <div className="App">
         <BrowserRouter>
         
           <Grid container >
             <Grid item xs={12}>
-              <Navbar />
+              <Navbar 
+                mode={mode}
+                setMode={setMode}
+              />
             </Grid>
             <Grid item xs={12}>
               <Routes>
@@ -37,6 +44,7 @@ function App() {
               </Routes>
             </Grid>
           </Grid>  
+          {mode}
         </BrowserRouter>
     </div>
   );
