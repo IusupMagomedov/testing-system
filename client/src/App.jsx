@@ -15,7 +15,6 @@ function App() {
   return (
     <div className="App">
         <BrowserRouter>
-        
           <Grid container >
             <Grid item xs={12}>
               <Navbar 
@@ -29,11 +28,11 @@ function App() {
               <Routes>
                 <Route
                   path="/"
-                  element={<Home />}
+                  element={<Home mode={mode}/>}
                 />
                 <Route
                   path="/questions"
-                  element={<Questions />}
+                  element={<Questions mode={mode}/>}
                 />
                 <Route
                   path="/settings"

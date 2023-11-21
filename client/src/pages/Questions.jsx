@@ -7,16 +7,28 @@ import TabList from '@material-ui/lab/TabList';
 import TabPanel from '@material-ui/lab/TabPanel';
 
 const Questions = () => {
-    const [ questions, setQuestions ] = useState(null);
-    const [ tab, setTab ] = useState(1);
+    const [questions, setQuestions] = useState(null);
+    const [tab, setTab] = useState(1);
+    const [finished, setFinished] = useState(false);
 
     const handleChange = (event, tab) => {
         // console.log('Valuer of tab in handleChange function: ', tab);
         setTab(tab);
       };
 
+    const selectHandle = event => {
+        if(tab < questions.length) {
+            setTab(tab + 1);
+        } else {
+            setFinished(true);
+        }
+    }
+
 
     useEffect(() => {
+        // fetch('/api/questions')
+        //     .then(response => response.json())
+        //     .then(json => setQuestions(json.questions))
         const fetchQuestions = async () => {
             const response = await fetch('/api/questions');
             const json = await response.json();
@@ -35,7 +47,7 @@ const Questions = () => {
             {/* <Question 
                 questionData={questions}
             /> */}
-            {/* {console.log("Array of questions in return section: ", questions)} */}
+            {console.log("Array of questions in return section: ", questions)}
             {console.log("Value of tab in return section: ", tab)}
             <TabContext value={tab}>
                 <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
@@ -46,21 +58,19 @@ const Questions = () => {
                             )}
                     </TabList>
                 </Box>
-                {questions && questions.map(
+                {questions && !finished && questions.map(
                     ( question, index ) => 
                         <TabPanel value={index + 1}>
                             <Question 
                                 questionData={question}
-                            />
+                                selectHandle={selectHandle}
+                            />  
                         </TabPanel>
-                    )}
+                    )
+                }
             </TabContext>
-        </Box>    
-        
-        
-            // {console.log("questions before printing: ", questions)}
-        
-        
+        </Box>
+        // {console.log("questions before printing: ", questions)}
     )
 }
 

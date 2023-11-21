@@ -7,7 +7,7 @@ import Button from '@mui/material/Button';
 
 
 
-const Question = ( { questionData }) => {
+const Question = ( { questionData, selectHandle }) => {
     return (
         <FormControl>
             <FormLabel id="demo-radio-buttons-group-label">{questionData.title}</FormLabel>
@@ -19,7 +19,7 @@ const Question = ( { questionData }) => {
                     <FormControlLabel value={index} control={<Radio />} label={option.title} />
                 ))}
             </RadioGroup>
-            <Button sx={{ mt: 1, mr: 1 }} type="submit" variant="outlined">
+            <Button sx={{ mt: 1, mr: 1 }} type="submit" onClick={selectHandle} variant="outlined">
                 select
             </Button>
         </FormControl>

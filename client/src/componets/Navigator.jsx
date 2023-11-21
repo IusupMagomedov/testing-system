@@ -47,7 +47,7 @@ const Navbar = props => {
                 borderRadius: 1,
                 }}
             >
-                <Button variant="contained" onClick={buttonHandler}>Start</Button>
+                <Button variant="contained" href='/questions' onClick={buttonHandler}>Start</Button>
                 <Button variant="contained" onClick={buttonHandler}>Settings</Button>
                 <ProfileMenu 
                     handler={buttonHandler}
