@@ -21,6 +21,7 @@ export default function ProfileMenu(props) {
         aria-haspopup="true"
         aria-expanded={open ? 'true' : undefined}
         onClick={handleClick}
+        
       >
         Username
       </Button>
@@ -33,7 +34,7 @@ export default function ProfileMenu(props) {
           'aria-labelledby': 'basic-button',
         }}
       >
-        <MenuItem onClick={props.handler}>Home</MenuItem>
+        <MenuItem onClick={props.handler} href='/'>Home</MenuItem>
         <MenuItem onClick={props.handler}>Profile</MenuItem>
         { props.loggedIn && <MenuItem onClick={props.handler}>Logout</MenuItem> }
         { !props.loggedIn && <MenuItem onClick={props.handler}>Login</MenuItem> }

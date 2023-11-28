@@ -2,6 +2,9 @@ const express = require('express')
 const app = express()
 const port = 5000
 
+
+const userRoutes = require('./routes/user')
+
 app.get('/api/questions', (req, res) => {
   res.json({ 
     questions: [
@@ -44,10 +47,12 @@ app.get('/api/homepage', (req, res) => {
   })
 })
 
-app.get('/', (req, res) => {
-    res.send('The app is supposed to be used by client')
-})
-    
+
+
+
+app.use('/api/user', userRoutes);
+
+
 
 app.listen(port, () => {
   console.log(`App listening on port ${port}`)
