@@ -1,9 +1,17 @@
-const express = require('express')
-const app = express()
-const port = 5000
+const express = require('express');
+const app = express();
+const port = 5000;
+const bodyParser = require('body-parser');
 
 
-const userRoutes = require('./routes/user')
+const userRoutes = require('./routes/user');
+
+app.use(bodyParser.json());
+app.use(
+  bodyParser.urlencoded({
+    extended: true,
+  }),
+);
 
 app.get('/api/questions', (req, res) => {
   res.json({ 

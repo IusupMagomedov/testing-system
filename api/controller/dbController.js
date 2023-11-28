@@ -1,4 +1,6 @@
 const fs = require('fs');
+const bcrypt = require('bcrypt');
+
 
 const dbFileName = 'userDB.json';
 
@@ -14,7 +16,7 @@ const checkUser =  (login, password) => {
         return user.userName == login
     });
     if(matchedUser[0]) {
-        if(matchedUser[0].password === password) {
+        if(bcrypt.compareSync(matchedUser[0].password, password)) {
             return {"message": "login and password are correct"};
         }
         return {"message": "login is correct"};
@@ -24,22 +26,28 @@ const checkUser =  (login, password) => {
 
 
 // create user
-const createUser =  (login, password) => {
-    if (checkUser(login, password).message === "login is incorrect") {
-        JSONUserData.push({
-            "userName": login, 
-            "email": login + "@123.ru",
-            "password": password
-        })
-
-        // let data = "This is a file containing a collection"
-        //         + " of programming languages.\n"
-        // + "1. C\n2. C++\n3. Python";
-        
+const createUser =  (username, password) => {
+    if (checkUser(username, password).message === "login is incorrect") {
+        const salt = bcrypt.genSaltSync(10);
+        const hash = bcrypt.hashSync(password.toString(), salt);
+        const user = {
+            "userName": username, 
+            "email": username + "@123.ru",
+            "password": hash
+        }
+        JSONUserData.push(user);
         fs.writeFileSync('../api/' + dbFileName, JSON.stringify(JSONUserData));
-        // console.log("File written successfully\n");
-        // console.log("The written has the following contents:");
-        // console.log(fs.readFileSync("programming.txt", "utf8"));
+        const idArray = JSONUserData.filter((element, index) => {
+            (element.username === username) && index
+        });
+        const _id = idArray[0];
+        return {
+            _id,
+            username,
+            hash
+        }
+    } else {
+        throw Error('Username is already exists')
     }
 };
 
