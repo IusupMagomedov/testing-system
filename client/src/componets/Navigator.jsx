@@ -1,6 +1,6 @@
 import Button from '@mui/material/Button';
 import Box from '@mui/material/Box';
-
+import { useLogout } from '../hooks/useLogout';
 
 import ProfileMenu from './ProfileMenu';
 
@@ -10,7 +10,7 @@ import './navigator.css';
 
 
 const Navbar = props => {
-
+    const { logout } = useLogout();
     const buttonHandler = event => {
         switch (event.target.innerText) {
             case 'START':
@@ -24,9 +24,12 @@ const Navbar = props => {
                 break;    
             case 'Logout':
                 props.setLoggedIn(false);
+                window.location.href = "/";
+                logout();
                 break;
             case 'Login':
                 props.setLoggedIn(true);
+                window.location.href = "/login";
                 break;    
             case 'Home':
                 props.setMode('home');
@@ -51,8 +54,6 @@ const Navbar = props => {
                 <Button variant="contained" onClick={buttonHandler}>Settings</Button>
                 <ProfileMenu 
                     handler={buttonHandler}
-                    loggedIn={props.loggedIn}
-                    // username={username}
                 />
             </Box>
             

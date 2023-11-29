@@ -2,8 +2,11 @@ import * as React from 'react';
 import Button from '@mui/material/Button';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
+import { Link } from 'react-router-dom';
+import { useAuthContext } from '../hooks/useAuthContext';
 
 export default function ProfileMenu(props) {
+  const { user } = useAuthContext();
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
   const handleClick = (event) => {
@@ -12,6 +15,10 @@ export default function ProfileMenu(props) {
   const handleClose = () => {
     setAnchorEl(null);
   };
+
+
+  const linkStyles = { textDecoration: 'none', color: 'inherit' };
+
 
   return (
     <div>
@@ -23,7 +30,7 @@ export default function ProfileMenu(props) {
         onClick={handleClick}
         
       >
-        Username
+        {user ? user.username : 'Login'}
       </Button>
       <Menu
         id="basic-menu"
@@ -34,10 +41,26 @@ export default function ProfileMenu(props) {
           'aria-labelledby': 'basic-button',
         }}
       >
-        <MenuItem onClick={props.handler} href='/'>Home</MenuItem>
-        <MenuItem onClick={props.handler}>Profile</MenuItem>
-        { props.loggedIn && <MenuItem onClick={props.handler}>Logout</MenuItem> }
-        { !props.loggedIn && <MenuItem to='/login' onClick={props.handler}>Login</MenuItem> }
+        <MenuItem onClick={props.handler}>
+          <Link to='/' style={linkStyles}>
+            Home
+          </Link>
+        </MenuItem>
+        <MenuItem onClick={props.handler}>
+          <Link to='/profile' style={linkStyles}>
+            Profile
+          </Link>
+        </MenuItem>
+        { user && <MenuItem onClick={props.handler}>
+          Logout
+        </MenuItem> }
+        
+        
+        { !user && <MenuItem onClick={props.handler}>
+          <Link to='/login' style={linkStyles}>
+            Login
+          </Link>
+        </MenuItem> }
       </Menu>
     </div>
   );

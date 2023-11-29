@@ -1,7 +1,6 @@
 import { useState } from "react";
+import { useLogin } from '../hooks/useLogin';
 import Box from '@mui/material/Box';
-import Avatar from '@mui/material/Avatar';
-import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import TextField from '@mui/material/TextField';
 import FormControlLabel from '@mui/material/FormControlLabel';
@@ -9,16 +8,19 @@ import Grid from '@mui/material/Grid';
 import Button from '@mui/material/Button';
 import Link from '@mui/material/Link';
 import Checkbox from '@mui/material/Checkbox';
+import Alert from '@mui/material/Alert';
+
 
 
 
 const Login = () => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
+    const { login, error, isLoading } = useLogin();
 
     const handleSubmit = async event => {
         event.preventDefault();
-        console.log("Login form: ", username, password);
+        await login(username, password);
     }
     return (
         <Box
@@ -29,9 +31,6 @@ const Login = () => {
             alignItems: 'center',
           }}
         >
-          <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
-            <LockOutlinedIcon />
-          </Avatar>
           <Typography component="h1" variant="h5">
             Log in
           </Typography>
@@ -69,22 +68,21 @@ const Login = () => {
               fullWidth
               variant="contained"
               sx={{ mt: 3, mb: 2 }}
+              disabled={isLoading}
             >
               Log In
             </Button>
             <Grid container>
               <Grid item xs>
-                <Link href="#" variant="body2">
-                  Forgot password?
-                </Link>
               </Grid>
               <Grid item>
-                <Link href="#" variant="body2">
+                <Link href="/signup" variant="body2">
                   {"Don't have an account? Sign Up"}
                 </Link>
               </Grid>
             </Grid>
           </Box>
+          {error && <Alert severity="error">{error}</Alert>}
         </Box>
     )
 }
