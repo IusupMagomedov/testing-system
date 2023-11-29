@@ -4,6 +4,8 @@ import Questions from './pages/Questions';
 import Settings from './pages/Settings';
 import Profile from './pages/Profile';
 import Navbar from './componets/Navigator';
+import Login from './pages/Login';
+import Signup from './pages/Singup';
 import { Grid } from '@mui/material';
 import { useState } from 'react';
 
@@ -41,6 +43,14 @@ function App() {
                 <Route
                   path="/profile"
                   element={<Profile />}
+                />
+                <Route
+                  path="/login"
+                  element={<Login />}
+                />
+                <Route
+                  path="/signup"
+                  element={<Signup />}
                 />
               </Routes>
             </Grid>

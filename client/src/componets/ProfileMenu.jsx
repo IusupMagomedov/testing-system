@@ -37,7 +37,7 @@ export default function ProfileMenu(props) {
         <MenuItem onClick={props.handler} href='/'>Home</MenuItem>
         <MenuItem onClick={props.handler}>Profile</MenuItem>
         { props.loggedIn && <MenuItem onClick={props.handler}>Logout</MenuItem> }
-        { !props.loggedIn && <MenuItem onClick={props.handler}>Login</MenuItem> }
+        { !props.loggedIn && <MenuItem to='/login' onClick={props.handler}>Login</MenuItem> }
       </Menu>
     </div>
   );
