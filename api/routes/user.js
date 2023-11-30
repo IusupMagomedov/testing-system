@@ -1,5 +1,5 @@
 const express = require('express');
-
+const requireAuth = require('../middleware/requireAuth');
 const router = express.Router();
 
 
@@ -15,11 +15,11 @@ router.post('/signup', signupUser);
 
 
 // authorized only
-
+router.use(requireAuth);
 
 // user preferences
-
 router.get('/preferences', showPreferences);
+
 
 
 

@@ -34,6 +34,20 @@ const findOne = async username => {
     return user;
 }
 
+const findId = async _id => {
+    const JSONUserData = JSON.parse(userData);
+    const matchedUsers = JSONUserData.filter(user => {
+        return user._id == _id
+    });
+    const user = matchedUsers[0];
+    console.log(user)
+    if(!user) {
+        throw Error('Username not found')
+    }
+    return user;
+}
+
+
 // check user
 const checkUser = async (username, password) => {
     if(!username || !password) {
@@ -71,8 +85,8 @@ const createUser =  (username, password) => {
     
     return user
     
-};
+}; 
 
 
 
-module.exports = { checkUser, createUser, findOne };
+module.exports = { checkUser, createUser, findOne, findId };

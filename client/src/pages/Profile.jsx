@@ -5,7 +5,7 @@ import { useAuthContext } from '../hooks/useAuthContext';
 
 const Profile = () => {
     const { user } = useAuthContext();
-    return (
+    return ( 
         <Box sx={{ flexGrow: 1 }}>
             <Grid container spacing={2}>
                 <Grid item xs={8}>

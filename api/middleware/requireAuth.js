@@ -1,14 +1,7 @@
-const fs = require('fs');
-const dbFileName = 'userDB.json';
-const userData = fs.readFileSync('../api/' + dbFileName,{ 
-    encoding: 'utf8', 
-    flag: 'r' 
-});
-const JSONUserData = JSON.parse(userData);
-
+const { findId } = require('../controller/dbController');
 const jwt = require('jsonwebtoken');
 
-const requireAuth = (req, res, next) => {
+const requireAuth = async (req, res, next) => {
     // verify authentication
     const { authorization } = req.headers;
     if(!authorization) {
@@ -20,15 +13,12 @@ const requireAuth = (req, res, next) => {
     try {
         const {_id} = jwt.verify(token, process.env.SECRET);
 
-        const matchedUsers = JSONUserData.filter(user => {
-            return user.userName == username
-        });
-        const user = matchedUsers[0];
-        req.user = user._id;
+        
+        req.user = await findId(_id);
         next();
 
     } catch (error) {
-        console.log(error);
+        console.log(error.message);
         res.status(401).json({error: 'Request is not aothorized'});
     }
 
