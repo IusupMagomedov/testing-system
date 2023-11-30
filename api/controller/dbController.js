@@ -1,40 +1,56 @@
 const fs = require('fs');
 const bcrypt = require('bcrypt');
 const crypto = require('crypto');
-
 const dbFileName = 'userDB.json';
+let userData;
 
-const userData = fs.readFileSync('../api/' + dbFileName,{ 
-    encoding: 'utf8', 
-    flag: 'r' 
-});
-const JSONUserData = JSON.parse(userData);
+try {
+    userData = fs.readFileSync(dbFileName, { 
+        encoding: 'utf8', 
+        flag: 'r' 
+    });
+} catch (error) {
+    if (error.message.includes('no such file')) {
+        fs.writeFileSync(dbFileName, '');
+    } else {
+        console.log(error);
+    }
+}
+
+
+
+
+// find one
+
+const findOne = async username => {
+    const JSONUserData = JSON.parse(userData);
+    const matchedUsers = JSONUserData.filter(user => {
+        return user.userName == username
+    });
+    const user = matchedUsers[0];
+    if(!user) {
+        throw Error('Username not found')
+    }
+    return user;
+}
 
 // check user
 const checkUser = async (username, password) => {
     if(!username || !password) {
         throw Error('All fields must be filled')
     }
-    const matchedUsers = JSONUserData.filter(user => {
-        return user.userName == username
-    });
-    const user = matchedUsers[0];
-    if(!user) {
-        throw Error('Incorrect username')
-    }
-
+    const user = await findOne(username);
     const match = await bcrypt.compare(password, user.password);
-
     if (!match) {
         throw Error('Incorrect password')
     }
-
-    return user
+    return user;
 };
 
 
 // create user
 const createUser =  (username, password) => {
+    const JSONUserData = JSON.parse(userData);
     const matchedUsers = JSONUserData.filter(user => {
         return user.userName == username
     });
@@ -51,7 +67,7 @@ const createUser =  (username, password) => {
         "password": hash
     }
     JSONUserData.push(user);
-    fs.writeFileSync('../api/' + dbFileName, JSON.stringify(JSONUserData));
+    fs.writeFileSync(dbFileName, JSON.stringify(JSONUserData));
     
     return user
     
@@ -59,4 +75,4 @@ const createUser =  (username, password) => {
 
 
 
-module.exports = { checkUser, createUser };
+module.exports = { checkUser, createUser, findOne };

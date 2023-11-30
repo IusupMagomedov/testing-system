@@ -6,7 +6,7 @@ const createToken = (_id) => {
     return jwt.sign({_id}, process.env.SECRET, { expiresIn: '3d' });
 }
 
-const { checkUser, createUser } = require('../controller/dbController');
+const { checkUser, createUser, findOne } = require('../controller/dbController');
 
 // login user
 const loginUser = async (req, res) => {
@@ -39,4 +39,17 @@ const signupUser = async (req, res) => {
 };
 
 
-module.exports = { signupUser, loginUser };
+// show preferences
+const showPreferences = async (req, res) => {
+    const { username } = req.body;
+    try {
+        const user = await findOne(username);
+
+
+        res.status(200).send(user);
+    } catch (error) {
+        res.status(400).json({'error' : error.message});
+    }
+}
+
+module.exports = { signupUser, loginUser, showPreferences };
