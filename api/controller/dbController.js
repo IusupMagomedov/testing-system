@@ -11,14 +11,15 @@ try {
     });
 } catch (error) {
     if (error.message.includes('no such file')) {
-        fs.writeFileSync(dbFileName, '');
+        fs.writeFileSync(dbFileName, '[]');
     } else {
+        console.log(1234)
         console.log(error);
     }
 }
 
 
-
+ 
 
 // find one
 
@@ -40,7 +41,6 @@ const findId = async _id => {
         return user._id == _id
     });
     const user = matchedUsers[0];
-    console.log(user)
     if(!user) {
         throw Error('Username not found')
     }
@@ -76,7 +76,7 @@ const createUser =  (username, password) => {
     const hash = bcrypt.hashSync(password.toString(), salt);
     const user = {
         "_id": crypto.randomBytes(8).toString("hex"),
-        "userName": username, 
+        "username": username, 
         "email": username + "@123.ru",
         "password": hash
     }

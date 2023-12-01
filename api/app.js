@@ -5,6 +5,7 @@ const bodyParser = require('body-parser');
 
 
 const userRoutes = require('./routes/user');
+const generalRoutes = require('./routes/general');
 
 app.use(bodyParser.json());
 app.use(
@@ -48,14 +49,7 @@ app.get('/api/questions', (req, res) => {
   })
 })
 
-app.get('/api/homepage', (req, res) => {
-  res.json({
-    title: "The titile of homepage", 
-    text: "The text of homepage"
-  })
-})
-
-
+app.use('/api/homepage', generalRoutes)
 
 
 app.use('/api/user', userRoutes);

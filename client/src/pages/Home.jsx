@@ -1,29 +1,60 @@
 import { useEffect, useState } from 'react';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
+import { useAuthContext } from '../hooks/useAuthContext';
+import Alert from '@mui/material/Alert';
 
 const Home = () => {
+    
+    const { user } = useAuthContext();
+    const [ loaded, setLoaded ] = useState(false);
+    const [ error, setError ] = useState(null);
     const [ homePageText, setHomePageText ] = useState(null)
 
-    useEffect(() => {
-        const fetchWorkouts =  () => {
-            fetch('/api/homepage')
-                .then(response => {
-                    console.log( "response in homepage useEffect: ", response);
-                    return response.json();
-                })
-                .then(json => {
-                    console.log( "JSON in homepage useEffect: ", json);
-                    return setHomePageText(json);
-                })
-        }
+    const fetchGreetings = async () => {
+        const response = await fetch('/api/homepage/greetings', {
+            method:'GET'
+        })
+        const json = await response.json();
 
-        fetchWorkouts();
-    }, [])
+        if(!response.ok) {
+            setError(json.error);
+        }
+        if (response.ok) {
+            
+            setHomePageText(json);
+            setLoaded(true);
+        }
+    };
+    
+    const fetchInitials = async () => {
+        console.log(user.username)
+        const response = await fetch('/api/homepage/initials', {
+            method:'GET', 
+            headers: {
+                'Authorization': `Barier ${user.token}`
+            }, 
+            username: user.username
+        })
+        const json = await response.json();
+
+        if(!response.ok) {
+            setError(json.error);
+        }
+        if (response.ok) {
+            setHomePageText(json);
+            setLoaded(true);
+        }
+    };
+    
+
+    useEffect(() => {
+        user ? fetchInitials() : fetchGreetings();
+    }, [user])
 
     return (
         <Box sx={{ width: '100%' }}>
-            {homePageText 
+            {loaded 
             ? 
             <>
                 <Typography variant="h3" align='center' gutterBottom> {homePageText.title} </Typography>
@@ -31,6 +62,7 @@ const Home = () => {
             </>
             : 
             <Typography variant="h3" align='center' gutterBottom> Loading... </Typography>}
+            {error && <Alert severity="error">{error}</Alert>}
         </Box>
     )
 }
