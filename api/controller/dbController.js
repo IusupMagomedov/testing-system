@@ -13,7 +13,6 @@ try {
     if (error.message.includes('no such file')) {
         fs.writeFileSync(dbFileName, '[]');
     } else {
-        console.log(1234)
         console.log(error);
     }
 }
@@ -26,8 +25,9 @@ try {
 const findOne = async username => {
     const JSONUserData = JSON.parse(userData);
     const matchedUsers = JSONUserData.filter(user => {
-        return user.userName == username
+        return user.username == username
     });
+    console.log(matchedUsers)
     const user = matchedUsers[0];
     if(!user) {
         throw Error('Username not found')
@@ -66,7 +66,7 @@ const checkUser = async (username, password) => {
 const createUser =  (username, password) => {
     const JSONUserData = JSON.parse(userData);
     const matchedUsers = JSONUserData.filter(user => {
-        return user.userName == username
+        return user.username == username
     });
     
     if(matchedUsers[0]) {

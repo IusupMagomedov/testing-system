@@ -28,14 +28,16 @@ const Home = () => {
     };
     
     const fetchInitials = async () => {
-        console.log(user.username)
         const response = await fetch('/api/homepage/initials', {
-            method:'GET', 
+            method:'POST', 
             headers: {
-                'Authorization': `Barier ${user.token}`
-            }, 
-            username: user.username
+                'authorization': `Barier ${user.token}`,
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({'username':user.username})
         })
+
+        
         const json = await response.json();
 
         if(!response.ok) {

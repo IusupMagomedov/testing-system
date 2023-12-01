@@ -15,7 +15,7 @@ router.get('/greetings', showGreetings);
 router.use(requireAuth);
 
 // user preferences
-router.get('/initials', showInitials);
+router.post('/initials', showInitials);
 
 
 
