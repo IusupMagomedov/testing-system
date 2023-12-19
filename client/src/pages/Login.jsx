@@ -3,13 +3,10 @@ import { useLogin } from '../hooks/useLogin';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import TextField from '@mui/material/TextField';
-import FormControlLabel from '@mui/material/FormControlLabel';
 import Grid from '@mui/material/Grid';
 import Button from '@mui/material/Button';
 import Link from '@mui/material/Link';
-import Checkbox from '@mui/material/Checkbox';
 import Alert from '@mui/material/Alert';
-
 
 
 
@@ -18,9 +15,15 @@ const Login = () => {
     const [password, setPassword] = useState('');
     const { login, error, isLoading } = useLogin();
 
+
     const handleSubmit = async event => {
-        event.preventDefault();
-        await login(username, password);
+      event.preventDefault();
+      await login(username, password);
+      console.log(error)
+      if (!error) {
+        document.location="/";
+      } 
+          
     }
     return (
         <Box
@@ -58,10 +61,6 @@ const Login = () => {
               autoComplete="current-password"
               onChange={event => setPassword(event.target.value)}
               value={password}
-            />
-            <FormControlLabel
-              control={<Checkbox value="remember" color="primary" />}
-              label="Remember me"
             />
             <Button
               type="submit"

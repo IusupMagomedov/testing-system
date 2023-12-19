@@ -7,34 +7,26 @@ import Navbar from './componets/Navigator';
 import Login from './pages/Login';
 import Signup from './pages/Singup';
 import { Grid } from '@mui/material';
-import { useState } from 'react';
 
 
 function App() {
-  const [mode, setMode] = useState(null);
-  const [loggedIn, setLoggedIn] = useState(false);
 
   return (
     <div className="App">
         <BrowserRouter>
           <Grid container >
             <Grid item xs={12}>
-              <Navbar 
-                mode={mode}
-                setMode={setMode}
-                loggedIn={loggedIn}
-                setLoggedIn={setLoggedIn}
-              />
+              <Navbar/>
             </Grid>
             <Grid item xs={12}>
               <Routes>
                 <Route
                   path="/"
-                  element={<Home mode={mode}/>}
+                  element={<Home/>}
                 />
                 <Route
                   path="/questions"
-                  element={<Questions mode={mode}/>}
+                  element={<Questions/>}
                 />
                 <Route
                   path="/settings"
@@ -55,7 +47,6 @@ function App() {
               </Routes>
             </Grid>
           </Grid>  
-          {mode}
         </BrowserRouter>
     </div>
   );

@@ -17,8 +17,12 @@ const Signup = () => {
     const { signup, error, isLoading } = useSignup();
 
     const handleSubmit = async event => {
-        event.preventDefault();
-        await signup(username, password);
+      event.preventDefault();
+      await signup(username, password);
+      console.log(error)
+      if (!error) {
+        document.location="/";
+      } 
     }
     return (
         <Box
@@ -56,10 +60,6 @@ const Signup = () => {
               autoComplete="current-password"
               onChange={event => setPassword(event.target.value)}
               value={password}
-            />
-            <FormControlLabel
-              control={<Checkbox value="remember" color="primary" />}
-              label="Remember me"
             />
             <Button
               type="submit"

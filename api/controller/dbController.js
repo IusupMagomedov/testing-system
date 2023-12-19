@@ -11,7 +11,7 @@ try {
     });
 } catch (error) {
     if (error.message.includes('no such file')) {
-        fs.writeFileSync(dbFileName, '[]');
+        fs.writeFileSync(dbFileName, '[{"_id":"8616463fdceb3183","username":"admin","email":"admin@123.ru","password":"$2b$10$lwPwehLmegGiggWtmerpa.GYcZAqwcXlXiMo6A/scJ7J2FCgNJ/L6"}]');
     } else {
         console.log(error);
     }
@@ -27,7 +27,6 @@ const findOne = async username => {
     const matchedUsers = JSONUserData.filter(user => {
         return user.username == username
     });
-    console.log(matchedUsers)
     const user = matchedUsers[0];
     if(!user) {
         throw Error('Username not found')

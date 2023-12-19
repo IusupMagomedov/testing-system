@@ -15,6 +15,11 @@ export default function ProfileMenu(props) {
   const handleClose = () => {
     setAnchorEl(null);
   };
+  const handleButtonClick = (event) => {
+    handleClose();
+    props.handler(event);
+  }
+
 
 
   const linkStyles = { textDecoration: 'none', color: 'inherit' };
@@ -41,22 +46,22 @@ export default function ProfileMenu(props) {
           'aria-labelledby': 'basic-button',
         }}
       >
-        <MenuItem onClick={props.handler}>
+        <MenuItem onClick={handleButtonClick}>
           <Link to='/' style={linkStyles}>
             Home
           </Link>
         </MenuItem>
-        <MenuItem onClick={props.handler}>
+        <MenuItem onClick={handleButtonClick}>
           <Link to='/profile' style={linkStyles}>
             Profile
           </Link>
         </MenuItem>
-        { user && <MenuItem onClick={props.handler}>
+        { user && <MenuItem onClick={handleButtonClick}>
           Logout
         </MenuItem> }
         
         
-        { !user && <MenuItem onClick={props.handler}>
+        { !user && <MenuItem onClick={handleButtonClick}>
           <Link to='/login' style={linkStyles}>
             Login
           </Link>

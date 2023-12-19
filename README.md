@@ -8,3 +8,8 @@
 * Testing
 * General settings 
 * Profile settings
+
+Default 
+username: admin
+password: admin
+Don't forget to change the password

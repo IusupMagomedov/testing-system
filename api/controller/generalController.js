@@ -18,7 +18,7 @@ const showGreetings = (req, res) => {
 
 // show preferences
 const showInitials = async (req, res) => {
-    console.log('Initials: ', req)
+    // console.log('Initials: ', req)
     const { username } = req.body;
     try {
         const user = await findOne(username);
